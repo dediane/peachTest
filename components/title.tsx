@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   view: {
     borderBottomColor: "#FEDE44",
     borderBottomWidth: 5,
-    width: "45%",
+    width: "25%",
     marginHorizontal: 'auto',
   },
   subtitle : {
