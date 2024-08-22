@@ -1,5 +1,9 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import Hexagon from "../hexagon";
+import { ProgressChart } from "react-native-chart-kit";
+
+const screenWidth = Dimensions.get("window").width;
 
 interface largeStatCardProps {
   number?: string;
@@ -20,20 +24,57 @@ export const LargeStatCard: React.FC<largeStatCardProps> = ({
   stat,
   borderColor,
 }) => {
+
+  const chartConfig = {
+    backgroundGradientFrom: "rgba(255, 255, 255, 0)",
+    backgroundGradientTo: "rgba(255, 255, 255, 0)",
+    color: (opacity = 1) => `rgba(240, 92, 107, ${opacity})`,
+    strokeWidth: 4,
+  };
+
+
   return (
     <View style={styles.card}>
-      <View style={[styles.hexagon, { borderColor }]}>
-        <View style={[styles.hexagonInner, { borderColor }]}>
+      {number && <View>
+          <Hexagon strokeColor={borderColor} />
           <Text style={styles.hexagonText}>{number}</Text>
-        </View>
+      </View>}
+      {icon && 
+      <View style={styles.circle}>
+        <ProgressChart
+          data={stat}
+          width={85}
+          height={85}
+          strokeWidth={4}
+          radius={32}
+          chartConfig={chartConfig}
+          hideLegend={true}
+          style={styles.progressChart}
+        />
+
+      <Image style={styles.icon} source={icon}></Image>
       </View>
+      }
+      <View>
+
       <Text style={styles.title}>{title}</Text>
+      {description && description.map((desc, index) => (
+        <Text key={index} style={styles.description}>{`\u2022 ${desc}`}</Text>
+      ))}
+      </View>
       <Image source={illustration} style={styles.image} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    width: 78,
+    height: 86,
+  },
   card: {
     backgroundColor: "#F0F4F7",
     borderRadius: 12,
@@ -44,6 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 16,
     position: "relative",
+    marginTop: 10,
   },
   title: {
     fontSize: 16,
@@ -52,30 +94,17 @@ const styles = StyleSheet.create({
     color: "#03314B",
   },
   description: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#2D2D2D",
-    textAlign: "center",
-  },
-  hexagon: {
-    width: 64,
-    height: 64,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderRadius: 8,
-    marginBottom: 8,
-  },
-  hexagonInner: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#03314B",
   },
   hexagonText: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#2D2D2D',
+    position: 'absolute',
+    alignSelf: 'center',
+    top: 28,
   },
   image: {
     width: 68,
@@ -84,5 +113,35 @@ const styles = StyleSheet.create({
     bottom: 0,
     position: "absolute",
     right: 0,
-  }
+  },
+  icon: {
+    width: 30,
+    height: 30,
+  },
+  circle: {
+    backgroundColor: "#FFFFFF",
+    width: 85,
+    height: 85,
+    borderRadius: 50,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  ring: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
+    borderWidth: 4,
+    borderColor: "#F05C6B",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+  },
+  progressChart: {
+    position: "absolute",
+    borderRadius: 50,
+    top: 0,
+    left: 0,
+  },
 });

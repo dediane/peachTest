@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
   },
   hexagonText: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#2D2D2D",
+    fontWeight: "900",
+    color: "#03314B",
     position: "absolute",
     alignSelf: "center",
     top: 28

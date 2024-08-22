@@ -48,9 +48,18 @@ export const Homepage = () => {
           />
         </View>
         <LargeStatCard
+          number="3"
           title="Nombre de prises manquées"
           borderColor="#F05C6B"
           illustration={require("../assets/Calendar.png")}
+        />
+        <LargeStatCard
+          title='1 symptôme ressenti'
+          borderColor="#F05C6B"
+          description={["Sensation de coeur qui bat", "Sérévité: 7,5/10"]}
+          icon={require("../assets/Symptom.png")}
+          illustration={require("../assets/Lightning.png")}
+          stat={[7.5/10]}
         />
       </View>
       <Subtitles text={constant.subtitle.thisweek} />
@@ -72,13 +81,10 @@ export const Homepage = () => {
       </View>
       <Subtitles text={constant.subtitle.next} />
       <View style={{ marginHorizontal: 14 }}>
-        <GetBetterCard />
+        <GetBetterCard title='Pour s’améliorer' illustration={require('../assets/Trophy.png')}/>
         <ReminderCard />
         <Button text="Passer au jour suivant" />
       </View>
-      <Hexagon strokeColor="#72DD89"/>
-      <Hexagon strokeColor="#F2BD4F"/>
-      <Hexagon strokeColor="#F05C6B"/>
     </ScrollView>
   );
 };
